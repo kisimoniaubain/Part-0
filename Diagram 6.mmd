@@ -1,0 +1,28 @@
+sequenceDiagram
+    participant User
+    participant Browser
+    participant Server
+
+    User->>Browser: Open SPA (/exampleapp/spa)
+    Browser->>Server: GET /exampleapp/spa
+    Server-->>Browser: HTML (SPA shell)
+
+    Browser->>Server: GET main.css
+    Server-->>Browser: CSS
+
+    Browser->>Server: GET spa.js
+    Server-->>Browser: JavaScript
+
+    Note right of Browser: JS runs and fetches existing notes
+    Browser->>Server: GET /api/notes (JSON)
+    Server-->>Browser: Notes data
+
+    Note right of Browser: JS renders existing notes
+
+    User->>Browser: Type new note in input
+    User->>Browser: Click "Save Note"
+
+    Browser->>Server: POST /api/notes (new note data)
+    Server-->>Browser: JSON of created note
+
+    Note right of Browser: JS adds the new note to the displayed list dynamically
